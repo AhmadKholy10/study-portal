@@ -1,6 +1,9 @@
 <?php
 
+use App\Http\Controllers\api\auth\AuthController;
+use App\Http\Controllers\api\LessonController;
 use App\Http\Controllers\CourseController;
+use App\Http\Middleware\EnsureAuthenticated;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -15,8 +18,22 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
+// Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+//     return $request->user();
+// });
 
-Route::post('/courses/{course}', [CourseController::class, 'enroll']);
+
+
+Route::post('register', [AuthController::class, 'register']);
+Route::post('login', [AuthController::class, 'login']);
+
+Route::middleware(['auth:sanctum'])->post('logout', [AuthController::class, 'logout']);
+
+Route::middleware(['check_token'])->group(function () {
+    Route::get('/user', function (Request $request) {
+        return $request->user();
+    });
+
+    Route::post('/courses/{course}', [CourseController::class, 'enroll']);
+    Route::post('/lesson/{lesson}', [LessonController::class, 'watch']);
+});
