@@ -1,6 +1,8 @@
 <?php
 
+use App\Http\Controllers\api\AchievementsController;
 use App\Http\Controllers\api\auth\AuthController;
+use App\Http\Controllers\api\CommentController;
 use App\Http\Controllers\api\LessonController;
 use App\Http\Controllers\CourseController;
 use App\Http\Middleware\EnsureAuthenticated;
@@ -36,4 +38,8 @@ Route::middleware(['check_token'])->group(function () {
 
     Route::post('/courses/{course}', [CourseController::class, 'enroll']);
     Route::post('/lesson/{lesson}', [LessonController::class, 'watch']);
+
+    Route::post('comment/{lesson}', [CommentController::class, 'store']); //write a commnet
 });
+
+Route::get('users/{user}/achievements', [AchievementsController::class, 'userAchievements']);
