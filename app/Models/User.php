@@ -21,6 +21,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'badge',
     ];
 
     /**
@@ -56,5 +57,22 @@ class User extends Authenticatable
     public function comments()
     {
         return $this->hasMany(Comment::class);
+    }
+
+    public function updateBadge()
+    {
+        $achievementCount = $this->achievements()->count();
+
+        if ($achievementCount >= 10) {
+            $this->badge = 'Master';
+        } elseif ($achievementCount >= 8) {
+            $this->badge = 'Advanced';
+        } elseif ($achievementCount >= 4) {
+            $this->badge = 'Intermediate';
+        } else {
+            $this->badge = 'Beginner';
+        }
+
+        $this->save();
     }
 }
