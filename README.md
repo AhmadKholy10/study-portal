@@ -61,25 +61,28 @@ A comprehensive study portal where users can enroll in courses, watch lessons, w
     ```
 
 ## API Endpoints
+All the API endpoints must be tested with bearer-token due to sanctum authentication,
+the token is returned in register & login endpoints and can be used with the remaining endpoints under auth:sanctum middleware.
 
 ### Authentication
 
 - **Register**: `POST /api/register`
 - **Login**: `POST /api/login`
 - **Logout**: `POST /api/logout`
+  
 
 ### Courses
 
-- **List all courses**: `GET /api/courses`
+
 - **Enroll in a course**: `POST /api/courses/{course}/enroll`
 
 ### Lessons
 
-- **Watch a lesson**: `POST /api/lessons/{lesson}/watch`
+- **Watch a lesson**: `POST /api/lessons/{lesson}`
 
 ### Comments
 
-- **Add a comment to a lesson**: `POST /api/lessons/{lesson}/comments`
+- **Add a comment to a lesson**: `POST /api/comment/{lesson}`
 
 ### Achievements
 
