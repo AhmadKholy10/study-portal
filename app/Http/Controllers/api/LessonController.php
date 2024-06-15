@@ -22,8 +22,7 @@ class LessonController extends Controller
 
         $user->lessons()->attach($lesson->id); // add the lesson to user's watched list
 
-    // Check for lesson-watched achievements
-    $lessonWatchedCount = $user->lessons()->count();
+    
     $this->checkAchievements($user, 'lesson');
 
     return response()->json(['message' => 'Lesson marked as watched']);
@@ -46,6 +45,7 @@ class LessonController extends Controller
                 $this->sendEmail($user, $achievement);
             }
         }
+        $user->updateBadge();
     }
 
     public function sendEmail($user, $achievement){

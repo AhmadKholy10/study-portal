@@ -8,6 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class Achievement extends Model
 {
     use HasFactory;
+    protected $fillable = ['name', 'type', 'count'];
+    
     public function users()
     {
         return $this->belongsToMany(User::class, 'user_achievement');

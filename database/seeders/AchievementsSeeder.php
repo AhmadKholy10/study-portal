@@ -23,6 +23,7 @@ class AchievementsSeeder extends Seeder
             ['name' => '3 Comments Written', 'type' => 'comment', 'count' => 3],
             ['name' => '5 Comments Written', 'type' => 'comment', 'count' => 5],
             ['name' => '10 Comments Written', 'type' => 'comment', 'count' => 10],
+            ['name' => '20 Comments Written', 'type' => 'comment', 'count' => 20],
         ];
 
         foreach ($achievements as $achievement) {

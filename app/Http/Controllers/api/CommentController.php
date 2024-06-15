@@ -41,6 +41,7 @@ class CommentController extends Controller
                 $this->sendEmail($user, $achievement);
             }
         }
+        $user->updateBadge();
     }
 
     public function sendEmail($user, $achievement){
