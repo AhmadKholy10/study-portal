@@ -3,9 +3,11 @@
 namespace App\Http\Controllers\api;
 
 use App\Http\Controllers\Controller;
+use App\Mail\AchievementUnlocked;
 use App\Models\Achievement;
 use App\Models\Lesson;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 
 class CommentController extends Controller
 {
@@ -36,9 +38,21 @@ class CommentController extends Controller
         foreach ($achievements as $achievement) {
             if (!$user->achievements->contains($achievement)) {
                 $user->achievements()->attach($achievement);
-                // $user->notify(new AchievementUnlocked($achievement));
+                $this->sendEmail($user, $achievement);
             }
         }
+    }
+
+    public function sendEmail($user, $achievement){
+        $data = [
+            'name' => $user->name,
+            'email' => $user->email,
+            'message' => 'You unlocked \"'. $achievement->name . '\"' ,
+        ];
+
+        Mail::to($user->email)->send(new AchievementUnlocked($data));
+
+        //return response()->json(['message' => 'Email sent successfully'], 200);
     }
 
 }

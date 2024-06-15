@@ -4,6 +4,7 @@ use App\Http\Controllers\api\AchievementsController;
 use App\Http\Controllers\api\auth\AuthController;
 use App\Http\Controllers\api\CommentController;
 use App\Http\Controllers\api\LessonController;
+use App\Http\Controllers\ContactController;
 use App\Http\Controllers\CourseController;
 use App\Http\Middleware\EnsureAuthenticated;
 use Illuminate\Http\Request;
@@ -43,3 +44,4 @@ Route::middleware(['check_token'])->group(function () {
 });
 
 Route::get('users/{user}/achievements', [AchievementsController::class, 'userAchievements']);
+Route::post('/send', [ContactController::class, 'send']);
