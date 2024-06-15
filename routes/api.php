@@ -37,9 +37,8 @@ Route::middleware(['check_token'])->group(function () {
         return $request->user();
     });
 
-    Route::post('/courses/{course}', [CourseController::class, 'enroll']);
+    Route::post('courses/{course}/enroll', [CourseController::class, 'enroll']);
     Route::post('/lesson/{lesson}', [LessonController::class, 'watch']);
-
     Route::post('comment/{lesson}', [CommentController::class, 'store']); //write a commnet
 });
 
